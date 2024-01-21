@@ -17,12 +17,44 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const sentences = [
-  "This is a sample sentence",
-  "‎",
-  "We want everyone to be able to read faster",
-  "🎉",
-];
+const sentencesByWpm = {
+  100: [
+    "You are now reading 100 words per minute",
+    "‎",
+    "We want beginners like you to be able to read faster",
+    "🎉",
+  ],
+  125: [
+    "Impressive! You're reading at 125 words per minute",
+    "‎",
+    "Keep up the good work and challenge yourself",
+    "🚀",
+  ],
+  150: [
+    "Fantastic! Your speed is at 150 words per minute",
+    "‎",
+    "You're getting faster with every word. Well done!",
+    "🌟",
+  ],
+  200: [
+    "Incredible! You're zooming through at 200 words per minute",
+    "‎",
+    "Feel the speed, embrace the words. You're a reading rocket!",
+    "🚀✨",
+  ],
+  250: [
+    "Unbelievable! You're hitting 250 words per minute",
+    "‎",
+    "Your reading speed is reaching new heights. Keep it up!",
+    "🌠",
+  ],
+  300: [
+    "Mind-blowing! You're conquering 300 words per minute",
+    "‎",
+    "At this pace, you're practically a reading superhero. Bravo!",
+    "💫📖",
+  ],
+};
 
 const Home = () => {
   const router = useRouter();
@@ -31,8 +63,9 @@ const Home = () => {
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
-  const currentSentence = sentences[currentSentenceIndex];
-  const currentWord = currentSentence.split(" ")[currentWordIndex];
+  const sentencesForWpm = sentencesByWpm[wpm] || [];
+  const currentSentence = sentencesForWpm[currentSentenceIndex];
+  const currentWord = currentSentence?.split(" ")[currentWordIndex];
 
   const wpmIntervals = {
     100: 600,
@@ -44,15 +77,18 @@ const Home = () => {
   };
 
   useEffect(() => {
+    // Check if wpm is defined before proceeding
+    if (!wpm) return;
+
     const interval = setInterval(() => {
       // Move to the next word
       if (currentWordIndex < currentSentence.split(" ").length - 1) {
         setCurrentWordIndex((prevIndex) => prevIndex + 1);
       } else {
         // Move to the next sentence
-        if (currentSentenceIndex < sentences.length - 1) {
+        if (currentSentenceIndex < sentencesForWpm.length - 1) {
           setCurrentSentenceIndex(
-            (prevIndex) => (prevIndex + 1) % sentences.length,
+            (prevIndex) => (prevIndex + 1) % sentencesForWpm.length,
           );
           setCurrentWordIndex(0);
         } else {
@@ -60,16 +96,18 @@ const Home = () => {
           clearInterval(interval);
         }
       }
-    }, wpmIntervals[wpm]); // Change word every 500 milliseconds
+    }, wpmIntervals[wpm]); // Change word every specified milliseconds
 
     return () => clearInterval(interval);
-  }, [currentWordIndex, currentSentenceIndex]);
+  }, [currentWordIndex, currentSentenceIndex, wpm]);
 
   return (
     <div className="bg-gray-900 text-white h-screen flex flex-col">
       <nav className="mb-24 bg-gray-800 p-4">
         <div className="container mx-auto">
-          <h1 className="text-2xl font-bold">Rapid Reads</h1>
+          <Link href="/">
+            <h1 className="text-2xl font-bold">Rapid Reads</h1>
+          </Link>
         </div>
       </nav>
       <div className="mt-20 mb-20 container mx-auto flex-grow p-8 text-center">

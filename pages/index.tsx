@@ -83,9 +83,11 @@ export default function Home() {
                 unlocking the joy of faster, more enjoyable reading. Elevate
                 your reading journey effortlessly with us!
               </p>
-              <Button className="border-2 mt-8 rounded px-8 py-3 text-sm font-medium leading-5 shadow-lg transition duration-150 ease-in-out hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:bg-pink-700 dark:hover:bg-pink-600 dark:focus:ring-offset-black">
-                <Link href="/app">Get Started</Link>
-              </Button>
+              <Link href="/app">
+                <Button className="border-2 mt-8 rounded px-8 py-3 text-sm font-medium leading-5 shadow-lg transition duration-150 ease-in-out hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:bg-pink-700 dark:hover:bg-pink-600 dark:focus:ring-offset-black">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

@@ -61,7 +61,9 @@ const Home = () => {
     <div className="bg-gray-900 text-white h-screen flex flex-col">
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto">
-          <h1 className="text-2xl font-bold">Rapid Reads</h1>
+          <Link href="/">
+            <h1 className="text-2xl font-bold">Rapid Reads</h1>
+          </Link>
         </div>
       </nav>
       <div className="container mx-auto flex-grow p-8 text-center">
